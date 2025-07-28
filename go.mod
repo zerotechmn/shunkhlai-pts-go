@@ -1,4 +1,4 @@
-module github.com/Owner/shunkhlai-pts-go
+module shunkhlai-pts-go
 
 go 1.22.2
 

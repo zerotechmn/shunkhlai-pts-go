@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"shunkhlai-pts-go/ptsservice"
+	ptsservice "shunkhlai-pts-go/ptsservice"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -27,6 +27,11 @@ func (h *PumpHandler) Authorize(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewDecoder(r.Body).Decode(&body)
 	res := h.Service.Authorize(body.Pump, body.Nozzle, body.Volume, body.Price)
+	respondJSON(w, res)
+}
+
+func (h *PumpHandler) Ping(w http.ResponseWriter, r *http.Request) {
+	res := h.Service.Ping()
 	respondJSON(w, res)
 }
 
