@@ -1,6 +1,7 @@
 package ptsservice
 
 import (
+	"fmt"
 	"net"
 	"time"
 
@@ -17,7 +18,22 @@ func NewPTSService(logger *log.Logger) *PTSService {
 }
 
 func (p *PTSService) Authorize(pump, nozzle int, volume, price float64) map[string]interface{} {
+	fmt.Printf("Authorize: pump=%d nozzle=%d volume=%.2f price=%.2f", pump, nozzle, volume, price)
+
+	var req BaseRequest
+
+	req.ID = 2
+	req.Method = "authorize_pump"
+	req.Params.Nozzle = nozzle
+	req.Params.Pump = pump
+	req.Params.PresetType = "volume"
+	req.Params.PresetValue = volume
+
+	fmt.Printf("Authorize Req : %+v\n", req)
+
 	p.log.Infof("Authorize: pump=%d nozzle=%d volume=%.2f price=%.2f", pump, nozzle, volume, price)
+	// TODO: Authorize pts2 request shideh bolon sock uusgej status awah
+
 	return map[string]interface{}{"authorized": true}
 }
 
@@ -48,6 +64,7 @@ func (h *PTSService) Ping() map[string]string {
 			}
 		}
 	}
+
 	return map[string]string{
 		"status":  "ok",
 		"version": "v1.0.1",

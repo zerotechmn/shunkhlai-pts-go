@@ -40,9 +40,9 @@ func main() {
 	// pump.HandleFunc("/error", h.LatestError).Methods("GET")
 	// pump.HandleFunc("/config", h.SetConfig).Methods("POST")
 	pump.HandleFunc("/ping", h.Ping).Methods("GET")
-	// pump.HandleFunc("/shutdown", h.Shutdown).Methods("GET")
 
 	log.Info("Starting server at :8080")
+	fmt.Println("Starting server at :8080")
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
